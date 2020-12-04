@@ -10,9 +10,13 @@ plugins {
 version = "0.1"
 group = "com.example"
 
+apply plugin: "java"
+
 repositories {
     mavenCentral()
+
     jcenter()
+    maven { url "https://repo1.maven.org/maven2" }
 }
 
 micronaut {
@@ -25,6 +29,7 @@ micronaut {
 }
 
 dependencies {
+    //ktlint "com.pinterest:ktlint:0.39.0"
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -36,6 +41,10 @@ dependencies {
     implementation("io.micronaut.micrometer:micronaut-micrometer-core")
     implementation("io.micronaut.micrometer:micronaut-micrometer-registry-influx")
     implementation("org.apache.logging.log4j:log4j-core:2.12.1")
+    implementation "org.mongodb:mongodb-driver-sync:4.1.1"
+    //implementation "org.mongodb:mongodb-driver:4.1.1"
+    implementation "org.litote.kmongo:kmongo:4.2.2"
+    implementation "io.github.microutils:kotlin-logging:1.10.11"
     runtimeOnly("org.apache.logging.log4j:log4j-api:2.12.1")
     runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.12.1")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -48,6 +57,10 @@ application {
 
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+configurations {
+    ktlint
 }
 
 tasks {

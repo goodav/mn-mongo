@@ -1,9 +1,52 @@
+
+
 micronaut:
   application:
-    name: mnMongo
+    name: mn-mongo
   metrics:
-    enabled: true
-    export:
-      influx:
+    http:
+      path: /
+  server:
+    port: 8080
+  http:
+    client:
+      connect-timeout: 1000ms
+      read-timeout: 5000ms
+      read-idle-timeout: 5m
+      pool:
         enabled: true
-        step: PT1M
+        acquire-timeout: 1000ms
+      channel-options:
+        tcp-keepidle: 5
+        tcp-keepinterval: 5
+        tcp-keepcount: 1
+      connect-ttl: 30s
+  caches:
+    discovery-client:
+      enabled: false
+      expire-after-access: 5s
+
+readiness:
+  initial: false
+
+mongodb:
+  uri: mongodb://mongo1,mongo2,mongo3:27017/example
+  options: connectTimeoutMS=5000&socketTimeoutMS=5000&serverSelectionTimeoutMS=5000&maxPoolSize=15&minPoolSize=5
+  db_connection_pool_wait_threshold: 40
+  collections:
+    - name: dave
+      drop_indexes:
+        - order.completedTimestamp
+      indexes:
+        - name: item_id_idx
+          unique: true
+          ascending: true
+          fields:
+            - itemId
+        - name: location_id_idx
+          fields:
+            - order.locationId
+        - name: document_ttl_idx
+          ttl_seconds: 604800 # 7 days
+          fields:
+            - completedTimestamp

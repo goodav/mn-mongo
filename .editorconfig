@@ -1,0 +1,5 @@
+
+[*.{kt, kts}]
+indent_size = unset
+insert_final_newline = true
+disabled_rules = import-ordering, indent, no-trailing-spaces
