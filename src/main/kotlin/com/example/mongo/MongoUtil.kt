@@ -13,7 +13,7 @@ import org.bson.Document
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-//@Singleton
+@Singleton
 class MongoUtil(
     private val mongoClient: MongoClient,
     private val mongoDatabase: MongoDatabase,

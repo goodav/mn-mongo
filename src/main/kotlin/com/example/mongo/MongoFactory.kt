@@ -1,8 +1,13 @@
 package com.example.mongo
 
+import com.mongodb.ConnectionString
+import com.mongodb.MongoClientSettings
+import com.mongodb.client.MongoClient
+import com.mongodb.client.MongoDatabase
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import io.micronaut.context.annotation.Factory
+import org.litote.kmongo.KMongo
 import javax.inject.Singleton
 
 @Factory
@@ -17,40 +22,34 @@ class MongoFactory {
   fun mongoConnectionPoolListener(meterRegistry: MeterRegistry): MongoConnectionPoolListener {
     return MongoConnectionPoolListener(meterRegistry)
   }
-//
-//    @Singleton
-//    fun mongoClientSettingsBuilder(mongoConfiguration: MongoConfiguration, mongoConnectionPoolListener: com.example.mongo.MongoConnectionPoolListener): MongoClientSettings {
-//       return MongoClientSettings.builder()
-//           .applyConnectionString(ConnectionString("${mongoConfiguration.uri}?${mongoConfiguration.options}"))
-//            .applyToConnectionPoolSettings { builder: Builder ->
-//                builder.addConnectionPoolListener(
-//                    mongoConnectionPoolListener
-//                )
-//            }
-//           .build()
-//    }
-//
-//    @Singleton
-//    fun mongoClient(mongoClientSettings: MongoClientSettings): MongoClient {
-//        return KMongo.createClient(mongoClientSettings)
-//    }
-////    @Singleton
-////    fun mongoClientURI(mongoConfiguration: MongoConfiguration, mongoClientOptionsBuilder: MongoClientOptions.Builder): MongoClientURI {
-////        // TODO: move away from one secret holding everything, and break out the config: mongodb://<user>:<pass>@<hosts>:<port>?<options>
-////        val mongoClientURI = MongoClientURI("${mongoConfiguration.uri}?${mongoConfiguration.options}", mongoClientOptionsBuilder)
-////        mongoClientURI.database ?: throw IllegalStateException("missing database name in your mongodb.uri")
-////        return mongoClientURI
-////    }
-//
-////    @Singleton
-////    fun mongoClient(mongoClientURI: MongoClientURI): MongoClient {
-////        return KMongo.createClient(mongoClientURI)
-////    }
-////
-////    @Singleton
-////    fun mongoDatabase(mongoClient: MongoClient, mongoClientURI: MongoClientURI): MongoDatabase {
-////        return mongoClient.getDatabase(mongoClientURI.database!!)
-////    }
+
+
+    @Singleton
+    fun mongoClientSettingsBuilder(mongoConfiguration: MongoConfiguration, connectionString: ConnectionString, mongoConnectionPoolListener: com.example.mongo.MongoConnectionPoolListener): MongoClientSettings {
+       return MongoClientSettings.builder()
+           .applyConnectionString(connectionString)
+            .applyToConnectionPoolSettings { builder ->
+                builder.addConnectionPoolListener(
+                    mongoConnectionPoolListener
+                )
+            }
+           .build()
+    }
+
+    @Singleton
+    fun connectionString(mongoConfiguration: MongoConfiguration) : ConnectionString {
+        return ConnectionString("${mongoConfiguration.uri}?${mongoConfiguration.options}")
+    }
+
+    @Singleton
+    fun mongoClient(mongoClientSettings: MongoClientSettings): MongoClient {
+        return KMongo.createClient(mongoClientSettings)
+    }
+
+    @Singleton
+    fun mongoDatabase(mongoClient: MongoClient, connectionString: ConnectionString,): MongoDatabase {
+        return mongoClient.getDatabase(connectionString.database!!)
+    }
 
 
 }
