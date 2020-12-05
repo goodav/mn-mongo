@@ -8,7 +8,7 @@ import mu.KotlinLogging
 import javax.inject.Singleton
 
 
-@Singleton
+//@Singleton
 class MicronautMongodbJacksonConfigurator : BeanCreatedEventListener<ObjectMapper?> {
     private val logger = KotlinLogging.logger { }
     override fun onCreated(event: BeanCreatedEvent<ObjectMapper?>): ObjectMapper {

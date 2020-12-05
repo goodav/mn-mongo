@@ -1,8 +1,9 @@
 package com.example.mongo
-import com.mongodb.MongoClient
+
 import com.mongodb.ReadConcern
 import com.mongodb.ReadConcernLevel
 import com.mongodb.WriteConcern
+import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.IndexOptions
@@ -12,7 +13,7 @@ import org.bson.Document
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Singleton
+//@Singleton
 class MongoUtil(
     private val mongoClient: MongoClient,
     private val mongoDatabase: MongoDatabase,

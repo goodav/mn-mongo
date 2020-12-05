@@ -5,9 +5,12 @@ micronaut:
     name: mn-mongo
   metrics:
     http:
-      path: /
+      path: /metrics
   server:
     port: 8080
+    #context-path: /dave
+  security:
+    enabled: false
   http:
     client:
       connect-timeout: 1000ms
@@ -26,26 +29,35 @@ micronaut:
       enabled: false
       expire-after-access: 5s
 
+endpoints:
+  beans:
+    enabled: true
+    sensitive: false
+  info:
+    enabled: true
+    sensitive: false
+
 readiness:
-  initial: false
+  initial: true
 
 mongodb:
-  uri: mongodb://mongo1,mongo2,mongo3:27017/example
+  #uri: mongodb://mongo1,mongo2,mongo3:27017/example
+  uri: mongodb://localhost:27017/admin
   options: connectTimeoutMS=5000&socketTimeoutMS=5000&serverSelectionTimeoutMS=5000&maxPoolSize=15&minPoolSize=5
   db_connection_pool_wait_threshold: 40
   collections:
-    - name: dave
+    - name: orders
       drop_indexes:
         - order.completedTimestamp
       indexes:
-        - name: item_id_idx
+        - name: order_id_idx
           unique: true
           ascending: true
           fields:
-            - itemId
+            - orderId
         - name: location_id_idx
           fields:
-            - order.locationId
+            - locationId
         - name: document_ttl_idx
           ttl_seconds: 604800 # 7 days
           fields:
