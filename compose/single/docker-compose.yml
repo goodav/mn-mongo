@@ -9,6 +9,10 @@ services:
     ports:
       - 27017:27017
     restart: always
+    environment:
+      MONGO_INITDB_DATABASE: example
+    volumes:
+      - ./seed/init.js:/docker-entrypoint-initdb.d/init.js:ro
 
   mongoclient:
     image: mongoclient/mongoclient
@@ -18,4 +22,4 @@ services:
     environment:
 #      MONGO_URL: "mongodb://mongo1,mongo2,mongo3:27017/example?replicaSet=dave"
       MONGOCLIENT_DEFAULT_CONNECTION_URL: "mongodb://mongo1:27017/admin"
-      STARTUP_DELAY: "30s"
+      STARTUP_DELAY: "10s"

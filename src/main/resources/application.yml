@@ -42,7 +42,7 @@ readiness:
 
 mongodb:
   #uri: mongodb://mongo1,mongo2,mongo3:27017/example
-  uri: mongodb://localhost:27017/admin
+  uri: mongodb://localhost:27017/example
   options: connectTimeoutMS=5000&socketTimeoutMS=5000&serverSelectionTimeoutMS=5000&maxPoolSize=15&minPoolSize=5
   db_connection_pool_wait_threshold: 40
   collections:
