@@ -20,7 +20,6 @@ class MongoConfiguration {
     var read_concern: String = "DEFAULT"
     var write_concern: String = "ACKNOWLEDGED"
 
-    @ConfigurationProperties("collections")
     class CollectionConfiguration {
         var name: String = ""
         var drop_indexes: List<String> = emptyList()
@@ -28,7 +27,6 @@ class MongoConfiguration {
         var read_concern: String? = null // will default to db level read concern
         var write_concern: String? = null // will default to db level write concern
 
-        @ConfigurationProperties("indexes")
         class IndexConfiguration {
             var name: String = ""
             var unique: Boolean = false

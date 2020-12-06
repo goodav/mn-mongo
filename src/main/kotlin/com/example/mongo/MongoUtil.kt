@@ -17,7 +17,7 @@ import javax.inject.Singleton
 class MongoUtil(
     private val mongoClient: MongoClient,
     private val mongoDatabase: MongoDatabase,
-    private val MongoConfiguration: MongoConfiguration
+    private val mongoConfiguration: MongoConfiguration
 ) {
 
     private val logger = KotlinLogging.logger {}
@@ -31,16 +31,16 @@ class MongoUtil(
     }
 
     fun getMongoConfiguration(): MongoConfiguration {
-        return MongoConfiguration
+        return mongoConfiguration
     }
 
     fun <T> getMongoCollection(collectionName: String, clazz: Class<T>): MongoCollection<T> {
-        return getMongoCollection(collectionName, MongoConfiguration, clazz)
+        return getMongoCollection(collectionName, mongoConfiguration, clazz)
     }
 
     fun <T> getMongoCollection(collectionName: String, collectionConfiguration: MongoConfiguration.CollectionConfiguration, clazz: Class<T>): MongoCollection<T> {
-        MongoConfiguration.collections.add(collectionConfiguration)
-        return getMongoCollection(collectionName, MongoConfiguration, clazz)
+        mongoConfiguration.collections.add(collectionConfiguration)
+        return getMongoCollection(collectionName, mongoConfiguration, clazz)
     }
 
     fun <T> getMongoCollection(collectionName: String, MongoConfiguration: MongoConfiguration, clazz: Class<T>): MongoCollection<T> {

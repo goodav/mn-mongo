@@ -7,7 +7,7 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Produces
 
-@Controller("/mongo/orders")
+@Controller("/orders")
 class MainController(
   val orderService: OrderService
 ) {

@@ -11,5 +11,6 @@ data class Order(
   val firstName: String,
   val lastName: String,
   val createdDate: Date,
+  val completedTimestamp: Date?,
   val items: List<Item>
 )

@@ -8,7 +8,7 @@ micronaut:
       path: /metrics
   server:
     port: 8080
-    #context-path: /dave
+    context-path: dave
   security:
     enabled: false
   http:
@@ -47,18 +47,16 @@ mongodb:
   db_connection_pool_wait_threshold: 40
   collections:
     - name: orders
-      drop_indexes:
-        - order.completedTimestamp
       indexes:
         - name: order_id_idx
           unique: true
           ascending: true
           fields:
             - orderId
-        - name: location_id_idx
-          fields:
-            - locationId
-        - name: document_ttl_idx
-          ttl_seconds: 604800 # 7 days
-          fields:
-            - completedTimestamp
+#      - name: location_id_idx
+#        fields:
+#          - locationId
+#      - name: document_ttl_idx
+#        ttl_seconds: 604800 # 7 days
+#        fields:
+#          - completedTimestamp

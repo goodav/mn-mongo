@@ -34,7 +34,7 @@ kapt {
 }
 
 dependencies {
-    //annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-inject-java"
 
     //ktlint "com.pinterest:ktlint:0.39.0"
     implementation("io.micronaut:micronaut-validation")
@@ -57,6 +57,7 @@ dependencies {
     //implementation "org.mongodb:mongodb-driver:4.1.1"
     implementation "org.litote.kmongo:kmongo:4.2.2"
     implementation "io.github.microutils:kotlin-logging:1.10.11"
+    //implementation "org.yaml:snakeyaml:1.26"
     runtimeOnly("org.apache.logging.log4j:log4j-api:2.12.1")
     runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.12.1")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
