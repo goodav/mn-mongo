@@ -10,10 +10,6 @@ import java.util.Optional
 @ConfigurationProperties("mongodb")
 class MongoConfiguration {
     var uri: String = "" // stop using this
-    var username: String = "" // not used yet
-    var password: String = "" // not used yet
-    var hosts: String = "" // not used yet
-    var port: String = "" // not used yet
     var options: String = "" // not used yet
     var collections = mutableListOf<CollectionConfiguration>()
     var db_connection_pool_wait_threshold: Int = 50

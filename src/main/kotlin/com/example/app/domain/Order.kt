@@ -10,6 +10,7 @@ data class Order(
   val orderId: Long,
   val firstName: String,
   val lastName: String,
+  val orderType: OrderType?,
   val createdDate: Date,
   val completedTimestamp: Date?,
   val items: List<Item>
